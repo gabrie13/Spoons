@@ -8,12 +8,12 @@ using EightSpoons.Models;
 
 namespace EightSpoons.Services
 {
-    interface IEmployeeService
+    interface IRegisterService
     {
-        List<EmployeeViewModel> GetAll();
-        EmployeeViewModel FindById(int id);
-        EmployeeViewModel Create(EmployeeViewModel employee);
-        EmployeeViewModel Save(EmployeeViewModel employee);
+        List<RegisterViewModel> GetAll();
+        RegisterViewModel FindById(int id);
+        RegisterViewModel Create(RegisterViewModel register);
+        RegisterViewModel Save(RegisterViewModel register);
         void Delete(int id);
         void Dispose();
     }

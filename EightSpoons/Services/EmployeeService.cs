@@ -38,5 +38,53 @@ namespace EightSpoons.Services
             var employee = db.Employees.Find(id);
             return employee != null ? EmpDto(employee) : null;
         }
+
+        public EmployeeViewModel Create(EmployeeViewModel employee)
+        {
+            var emp = fromEmp(employee);
+            db.Employees.Add(emp);
+            db.SaveChanges();
+
+            employee.EmployeeId = emp.EmployeeId;
+            return EmpDto(emp);
+        }
+
+        private static Employee fromEmp(EmployeeViewModel employee)
+        {
+            var emp = new Employee
+            {
+                EmployeeId = employee.EmployeeId,
+                FirstName  = employee.FirstName,
+                LastName   = employee.LastName,
+                Address    = employee.Address,
+                City       = employee.City,
+                State      = employee.State,
+                ZipCode    = employee.ZipCode,
+                Phone      = employee.Phone,
+                Email      = employee.Email
+            };
+            return emp;
+        }
+
+        public EmployeeViewModel Save(EmployeeViewModel employee)
+        {
+            var emp = fromEmp(employee);
+            db.Entry(emp).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return EmpDto(emp);
+        }
+
+        public void Delete(int id)
+        {
+            Employee employee = db.Employees.Find(id);
+            db.Employees.Remove(employee);
+            db.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            db.Dispose();
+        }
     }
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
