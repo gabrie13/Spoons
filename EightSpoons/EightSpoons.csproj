@@ -131,6 +131,9 @@
     <Compile Include="Models\EightSpoonsDB.cs" />
     <Compile Include="Models\EightSpoonsDbSetInitializer.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeLocation.cs" />
+    <Compile Include="Models\EmployeePosition.cs" />
+    <Compile Include="Models\EmployeeRegister.cs" />
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\LocationViewModel.cs" />
