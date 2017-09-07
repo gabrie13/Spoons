@@ -11,100 +11,109 @@ using EightSpoons.Services;
 
 namespace EightSpoons.Controllers
 {
-    public class PositionController : Controller
+    public class EmployeeController : Controller
     {
         private EightSpoonsDB db = new EightSpoonsDB();
-        private readonly IPositionService _positionService = new PositionService();
-        // GET: Position
+        private readonly IEmployeeService _employeeService = new EmployeeService();
+
+        // GET: Employee
         public ActionResult Index()
         {
-            return View(_positionService.GetAll());
+            return View(_employeeService.GetAll());
         }
 
-        // GET: Position/Details/5
+        // GET: Employee/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PositionViewModel position = _positionService.FindById(id.Value);
-            if (position == null)
+            EmployeeViewModel employee = _employeeService.FindById(id.Value);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(position);
+            return View(employee);
         }
 
-        // GET: Position/Create
+        // GET: Employee/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Position/Create
+        // POST: Employee/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PositionId,PositionTitle")] PositionViewModel position)
+        public ActionResult Create([Bind(Include = "EmployeeId,FirstName,LastName,Address,City,State,ZipCode,Email,Phone")] Employee employee)
         {
             if (ModelState.IsValid)
             {
-                _positionService.Create(position);
+                db.Employees.Add(employee);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(position);
+            return View(employee);
         }
 
-        // GET: Position/Edit/5
+        // GET: Employee/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PositionViewModel position = _positionService.FindById(id.Value);
-            if (position == null)
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(position);
+            return View(employee);
         }
 
-        // POST: Position/Edit/5
+        // POST: Employee/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PositionId,PositionTitle")] PositionViewModel position)
+        public ActionResult Edit([Bind(Include = "EmployeeId,FirstName,LastName,Address,City,State,ZipCode,Email,Phone")] Employee employee)
         {
             if (ModelState.IsValid)
             {
-                _positionService.Save(position);
+                db.Entry(employee).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(position);
+            return View(employee);
         }
 
-        // GET: Position/Delete/5
+        // GET: Employee/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PositionViewModel position = _positionService.FindById(id.Value);
-            if (position == null)
+            Employee employee = db.Employees.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(position);
+            return View(employee);
         }
 
-        // POST: Position/Delete/5
+        // POST: Employee/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _positionService.Delete(id);
+            Employee employee = db.Employees.Find(id);
+            db.Employees.Remove(employee);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -112,7 +121,7 @@ namespace EightSpoons.Controllers
         {
             if (disposing)
             {
-                _positionService.Dispose();
+                db.Dispose();
             }
             base.Dispose(disposing);
         }

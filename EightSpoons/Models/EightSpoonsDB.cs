@@ -22,6 +22,7 @@ namespace EightSpoons.Models
         public System.Data.Entity.DbSet<EightSpoons.Models.Location> Locations { get; set; }
 
         public System.Data.Entity.DbSet<EightSpoons.Models.Position> Positions { get; set; }
-    
+
+        public System.Data.Entity.DbSet<EightSpoons.Models.Employee> Employees { get; set; }
     }
 }
