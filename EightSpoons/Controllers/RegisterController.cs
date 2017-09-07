@@ -11,101 +11,101 @@ using EightSpoons.Services;
 
 namespace EightSpoons.Controllers
 {
-    public class EmployeeController : Controller
+    public class RegisterController : Controller
     {
         private EightSpoonsDB db = new EightSpoonsDB();
-        private readonly IEmployeeService _employeeService = new EmployeeService();
+        private readonly IRegisterService _registerService = new RegisterService();
 
-        // GET: Employee
+        // GET: Register
         public ActionResult Index()
         {
-            return View(_employeeService.GetAll());
+            return View(_registerService.GetAll());
         }
 
-        // GET: Employee/Details/5
+        // GET: Register/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmployeeViewModel employee = _employeeService.FindById(id.Value);
-            if (employee == null)
+            RegisterViewModel register = _registerService.FindById(id.Value);
+            if (register == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(register);
         }
 
-        // GET: Employee/Create
+        // GET: Register/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Employee/Create
+        // POST: Register/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeId,FirstName,LastName,Address,City,State,ZipCode,Email,Phone")] EmployeeViewModel employee)
+        public ActionResult Create([Bind(Include = "RegisterId,Cash,Check,Visa,MasterCard,Discover,Amex,GiftCard,Tax,CcTotal,Total")] RegisterViewModel register)
         {
             if (ModelState.IsValid)
             {
-                _employeeService.Create(employee);
+                _registerService.Create(register);
                 return RedirectToAction("Index");
             }
 
-            return View(employee);
+            return View(register);
         }
 
-        // GET: Employee/Edit/5
+        // GET: Register/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmployeeViewModel employee = _employeeService.FindById(id.Value);
-            if (employee == null)
+            RegisterViewModel register = _registerService.FindById(id.Value);
+            if (register == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(register);
         }
 
-        // POST: Employee/Edit/5
+        // POST: Register/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmployeeId,FirstName,LastName,Address,City,State,ZipCode,Email,Phone")] EmployeeViewModel employee)
+        public ActionResult Edit([Bind(Include = "RegisterId,Cash,Check,Visa,MasterCard,Discover,Amex,GiftCard,Tax,CcTotal,Total")] RegisterViewModel register)
         {
             if (ModelState.IsValid)
             {
-                _employeeService.Save(employee);
+                _registerService.Save(register);
                 return RedirectToAction("Index");
             }
-            return View(employee);
+            return View(register);
         }
 
-        // GET: Employee/Delete/5
+        // GET: Register/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EmployeeViewModel employee = _employeeService.FindById(id.Value);
-            if (employee == null)
+            RegisterViewModel register = _registerService.FindById(id.Value);
+            if (register == null)
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            return View(register);
         }
 
-        // POST: Employee/Delete/5
+        // POST: Register/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _employeeService.Delete(id);
+            
             return RedirectToAction("Index");
         }
 
@@ -113,7 +113,7 @@ namespace EightSpoons.Controllers
         {
             if (disposing)
             {
-                _employeeService.Dispose();
+                _registerService.Dispose();
             }
             base.Dispose(disposing);
         }

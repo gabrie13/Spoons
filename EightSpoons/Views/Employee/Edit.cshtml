@@ -1,4 +1,4 @@
-﻿@model EightSpoons.Models.Employee
+﻿@model EightSpoons.Models.EmployeeViewModel
 
 @{
     ViewBag.Title = "Employee | Edit";
@@ -9,7 +9,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Employee</h4>
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.EmployeeId)
